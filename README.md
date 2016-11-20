@@ -3,7 +3,7 @@ Weather
 
 Sample application for Android concepts:
 - List view
-- Detailed view
+- Detail view
 - Fetch data from an API
 - Google design concepts
  
