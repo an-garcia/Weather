@@ -14,8 +14,11 @@ This app is based on [here](https://github.com/udacity/Sunshine).
 
 In order for the app to function properly as of October 18th, 2015 an API key for openweathermap.org must be included with the build.
 
-It's recommended to obtain a key via the following [instructions](http://openweathermap.org/appid#use), and include the unique key for the build by adding the following line to [USER_HOME]/.gradle/gradle.properties
+It's recommended to obtain a key via the following [instructions](http://openweathermap.org/appid#use), and include the unique key for the build by adding the following line to [USER_HOME]/app/build.gradle
 
-`MyOpenWeatherMapApiKey="<UNIQUE_API_KEY">`
+
+buildTypes.each {
+        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', '"UNIQUE_API_KEY"'
+    }
 
 
