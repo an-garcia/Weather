@@ -33,6 +33,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <provider
+            android:authorities="com.xengar.android.weather"
+            android:name=".data.WeatherProvider"/>
     </application>
 
 </manifest>
