@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback{
+public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
@@ -28,14 +28,16 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             // in two-pane mode.
             mTwoPane = true;
             // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a fragment transaction.
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                         .commit();
             }
-        }  else {
+        } else {
             mTwoPane = false;
+            getSupportActionBar().setElevation(0f);
         }
 
         ForecastFragment forecastFragment =  ((ForecastFragment)getSupportFragmentManager()
@@ -62,11 +64,11 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
+
         if (id == R.id.action_map) {
             openPreferredLocationInMap();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(geoLocation);
+
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else {
@@ -95,14 +98,12 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
         String location = Utility.getPreferredLocation( this );
         // update the location in our second pane using the fragment manager
         if (location != null && !location.equals(mLocation)) {
-            ForecastFragment ff = (ForecastFragment)getSupportFragmentManager()
-                    .findFragmentById(R.id.fragment_forecast);
+            ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
             if ( null != ff ) {
                 ff.onLocationChanged();
             }
-            DetailFragment df =
-                    (DetailFragment)getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
-            if (null != df) {
+            DetailFragment df = (DetailFragment)getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
+            if ( null != df ) {
                 df.onLocationChanged(location);
             }
             mLocation = location;
@@ -125,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
                     .replace(R.id.weather_detail_container, fragment, DETAILFRAGMENT_TAG)
                     .commit();
         } else {
-            Intent intent = new Intent(this, DetailActivity.class).setData(contentUri);
+            Intent intent = new Intent(this, DetailActivity.class)
+                    .setData(contentUri);
             startActivity(intent);
         }
     }
