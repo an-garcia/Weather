@@ -41,4 +41,5 @@
             android:name=".data.WeatherProvider"/>
     </application>
 
+    <service android:name=".service.WeatherService"/>
 </manifest>
