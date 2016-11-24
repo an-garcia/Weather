@@ -1,6 +1,11 @@
 Weather
 ========
 
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-24-112911.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-24-113014.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-24-113603.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/final_bstSnapshot_32291.png)
+
 Sample application for Android concepts:
 - List view
 - Detail view
