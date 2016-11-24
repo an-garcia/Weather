@@ -1,8 +1,10 @@
 package com.xengar.android.weather.service;
 
 import android.app.IntentService;
+import android.content.BroadcastReceiver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -319,5 +321,16 @@ public class WeatherService  extends IntentService {
         locationCursor.close();
         // Wait, that worked?  Yes!
         return locationId;
+    }
+
+
+    public static class AlarmReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Intent sendIntent = new Intent(context, WeatherService.class);
+            sendIntent.putExtra(WeatherService.LOCATION_QUERY_EXTRA,
+                    intent.getStringExtra(WeatherService.LOCATION_QUERY_EXTRA));
+            context.startService(sendIntent);
+        }
     }
 }
