@@ -42,7 +42,7 @@
                 android:value="com.xengar.android.weather.MainActivity" />
         </activity>
         <provider
-            android:authorities="com.xengar.android.weather"
+            android:authorities="@string/content_authority"
             android:name=".data.WeatherProvider"
             android:exported="false"
             android:syncable="true" />
@@ -59,7 +59,7 @@
 
         <!-- The SyncAdapter service -->
         <service
-            android:name=".service.WeatherService"
+            android:name=".sync.WeatherSyncService"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
