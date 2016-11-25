@@ -24,8 +24,6 @@ import android.widget.TextView;
 import com.xengar.android.weather.data.WeatherContract;
 import com.xengar.android.weather.sync.WeatherSyncAdapter;
 
-import static android.R.id.message;
-
 /**
  * Encapsulates fetching the forecast and displaying it as a {@link ListView} layout.
  */
@@ -300,6 +298,9 @@ public class ForecastFragment extends Fragment implements
                         break;
                     case WeatherSyncAdapter.LOCATION_STATUS_SERVER_INVALID:
                         message = R.string.empty_forecast_list_server_error;
+                        break;
+                    case WeatherSyncAdapter.LOCATION_STATUS_INVALID:
+                        message = R.string.empty_forecast_list_invalid_location;
                         break;
                     default:
                         if (!Utility.isNetworkAvailable(getActivity()) ) {

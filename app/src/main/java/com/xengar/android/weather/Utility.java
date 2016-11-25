@@ -237,21 +237,23 @@ public class Utility {
     }
 
     /**
-     *  Returns true if the network is available or about to become available.
+     * Returns true if the network is available or about to become available.
      *
-     *  @param c Context used to get the ConnectivityManager
-     *  @return true if the network is available
+     * @param c Context used to get the ConnectivityManager
+     * @return true if the network is available
      */
     static public boolean isNetworkAvailable(Context c) {
         ConnectivityManager cm =
                 (ConnectivityManager)c.getSystemService(Context.CONNECTIVITY_SERVICE);
+
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
     }
 
     /**
      *
-     * @param c  Context used to get the SharedPreferences
+     * @param c Context used to get the SharedPreferences
      * @return the location status integer type
      */
     @SuppressWarnings("ResourceType")
@@ -260,5 +262,17 @@ public class Utility {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
         return sp.getInt(c.getString(R.string.pref_location_status_key),
                 WeatherSyncAdapter.LOCATION_STATUS_UNKNOWN);
+    }
+
+    /**
+     * Resets the location status.  (Sets it to WeatherSyncAdapter.LOCATION_STATUS_UNKNOWN)
+     * @param c Context used to get the SharedPreferences
+     */
+    static public void resetLocationStatus(Context c){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(c);
+        SharedPreferences.Editor spe = sp.edit();
+        spe.putInt(c.getString(R.string.pref_location_status_key),
+                WeatherSyncAdapter.LOCATION_STATUS_UNKNOWN);
+        spe.apply();
     }
 }
