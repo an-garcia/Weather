@@ -25,12 +25,11 @@ import com.xengar.android.weather.data.WeatherContract;
 import com.xengar.android.weather.sync.WeatherSyncAdapter;
 
 /**
- * Encapsulates fetching the forecast and displaying it as a {@link RecyclerView} layout.
+ * Encapsulates fetching the forecast and displaying it as a {@link android.support.v7.widget.RecyclerView} layout.
  */
-public class ForecastFragment extends Fragment
-        implements LoaderManager.LoaderCallbacks<Cursor>,
+public class ForecastFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks<Cursor>,
         SharedPreferences.OnSharedPreferenceChangeListener {
-
     public static final String LOG_TAG = ForecastFragment.class.getSimpleName();
     private ForecastAdapter mForecastAdapter;
 
@@ -136,9 +135,6 @@ public class ForecastFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // The ForecastAdapter will take data from a source and
-        // use it to populate the RecyclerView it's attached to.
-        mForecastAdapter = new ForecastAdapter(getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -147,26 +143,28 @@ public class ForecastFragment extends Fragment
 
         // Set the layout manager
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        View emptyView = rootView.findViewById(R.id.recyclerview_forecast_empty);
+        View emptyView = rootView.findViewById(R.id.recyclerview_forecast_empty);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // The ForecastAdapter will take data from a source and
+        // use it to populate the RecyclerView it's attached to.
+        mForecastAdapter = new ForecastAdapter(getActivity(), new ForecastAdapter.ForecastAdapterOnClickHandler() {
+            @Override
+            public void onClick(Long date, ForecastAdapter.ForecastAdapterViewHolder vh) {
+                String locationSetting = Utility.getPreferredLocation(getActivity());
+                ((Callback) getActivity())
+                        .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                                locationSetting, date)
+                        );
+                mPosition = vh.getAdapterPosition();
+            }
+        }, emptyView);
+
+        // specify an adapter (see also next example)
         mRecyclerView.setAdapter(mForecastAdapter);
-        // We'll call our MainActivity
-//        mRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                // CursorAdapter returns a cursor at the correct position for getItem(), or null
-//                // if it cannot seek to that position.
-//                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
-//                if (cursor != null) {
-//                    String locationSetting = Utility.getPreferredLocation(getActivity());
-//                    ((Callback) getActivity())
-//                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-//                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
-//                            ));
-//                }
-//                mPosition = position;
-//            }
-//        });
 
         // If there's instance state, mine it for useful information.
         // The end-goal here is that the user never knows that turning their device sideways
@@ -174,7 +172,7 @@ public class ForecastFragment extends Fragment
         // or magically appeared to take advantage of room, but data or place in the app was never
         // actually *lost*.
         if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
-            // The RecyclerView probably hasn't even been populated yet.  Actually perform the
+            // The Recycler View probably hasn't even been populated yet.  Actually perform the
             // swapout in onLoadFinished.
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
         }
@@ -191,7 +189,7 @@ public class ForecastFragment extends Fragment
     }
 
     // since we read the location when we create the loader, all we need to do is restart things
-    void onLocationChanged( ) {
+    void onLocationChanged() {
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
     }
 
@@ -199,9 +197,9 @@ public class ForecastFragment extends Fragment
         // Using the URI scheme for showing a location found on a map.  This super-handy
         // intent can is detailed in the "Common Intents" page of Android's developer site:
         // http://developer.android.com/guide/components/intents-common.html#Maps
-        if ( null != mForecastAdapter ) {
+        if (null != mForecastAdapter) {
             Cursor c = mForecastAdapter.getCursor();
-            if ( null != c ) {
+            if (null != c) {
                 c.moveToPosition(0);
                 String posLat = c.getString(COL_COORD_LAT);
                 String posLong = c.getString(COL_COORD_LONG);
@@ -223,7 +221,7 @@ public class ForecastFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // When tablets rotate, the currently selected list item needs to be saved.
-        // When no item is selected, mPosition will be set to RecyclerView.INVALID_POSITION,
+        // When no item is selected, mPosition will be set to RecyclerView.NO_POSITION,
         // so check for that before storing.
         if (mPosition != RecyclerView.NO_POSITION) {
             outState.putInt(SELECTED_KEY, mPosition);
@@ -299,7 +297,7 @@ public class ForecastFragment extends Fragment
                         message = R.string.empty_forecast_list_invalid_location;
                         break;
                     default:
-                        if (!Utility.isNetworkAvailable(getActivity()) ) {
+                        if (!Utility.isNetworkAvailable(getActivity())) {
                             message = R.string.empty_forecast_list_no_network;
                         }
                 }
@@ -310,9 +308,8 @@ public class ForecastFragment extends Fragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if ( key.equals(getString(R.string.pref_location_status_key)) ) {
+        if (key.equals(getString(R.string.pref_location_status_key))) {
             updateEmptyView();
         }
     }
-
 }
