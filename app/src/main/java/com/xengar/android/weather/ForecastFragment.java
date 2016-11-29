@@ -37,6 +37,7 @@ import com.xengar.android.weather.sync.WeatherSyncAdapter;
 public class ForecastFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         SharedPreferences.OnSharedPreferenceChangeListener {
+
     public static final String LOG_TAG = ForecastFragment.class.getSimpleName();
     private ForecastAdapter mForecastAdapter;
 
@@ -44,6 +45,7 @@ public class ForecastFragment extends Fragment implements
     private int mPosition = RecyclerView.NO_POSITION;
     private boolean mUseTodayLayout, mAutoSelectView;
     private int mChoiceMode;
+    private boolean mHoldForTransition;
 
     private static final String SELECTED_KEY = "selected_position";
 
@@ -89,7 +91,7 @@ public class ForecastFragment extends Fragment implements
         /**
          * DetailFragmentCallback for when an item has been selected.
          */
-        public void onItemSelected(Uri dateUri);
+        public void onItemSelected(Uri dateUri, ForecastAdapter.ForecastAdapterViewHolder vh);
     }
 
     public ForecastFragment() {
@@ -146,6 +148,7 @@ public class ForecastFragment extends Fragment implements
                 0, 0);
         mChoiceMode = a.getInt(R.styleable.ForecastFragment_android_choiceMode, AbsListView.CHOICE_MODE_NONE);
         mAutoSelectView = a.getBoolean(R.styleable.ForecastFragment_autoSelectView, false);
+        mHoldForTransition = a.getBoolean(R.styleable.ForecastFragment_sharedElementTransitions, false);
         a.recycle();
     }
 
@@ -175,7 +178,8 @@ public class ForecastFragment extends Fragment implements
                 String locationSetting = Utility.getPreferredLocation(getActivity());
                 ((Callback) getActivity())
                         .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
-                                locationSetting, date)
+                                locationSetting, date),
+                                vh
                         );
                 mPosition = vh.getAdapterPosition();
             }
@@ -224,6 +228,12 @@ public class ForecastFragment extends Fragment implements
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        // We hold for transition here just in-case the activity
+        // needs to be re-created. In a standard return transition,
+        // this doesn't actually make a difference.
+        if ( mHoldForTransition ) {
+            getActivity().supportPostponeEnterTransition();
+        }
         getLoaderManager().initLoader(FORECAST_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
@@ -303,7 +313,9 @@ public class ForecastFragment extends Fragment implements
             mRecyclerView.smoothScrollToPosition(mPosition);
         }
         updateEmptyView();
-        if ( data.getCount() > 0 ) {
+        if ( data.getCount() == 0 ) {
+            getActivity().supportStartPostponedEnterTransition();
+        } else {
             mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
@@ -317,6 +329,9 @@ public class ForecastFragment extends Fragment implements
                         if ( null != vh && mAutoSelectView ) {
                             mForecastAdapter.selectView( vh );
                         }
+                        if ( mHoldForTransition ) {
+                            getActivity().supportStartPostponedEnterTransition();
+                        }
                         return true;
                     }
                     return false;
@@ -325,6 +340,8 @@ public class ForecastFragment extends Fragment implements
         }
 
     }
+
+
 
     @Override
     public void onDestroy() {
