@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 25
@@ -28,9 +27,15 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:appcompat-v7:25.0.1'
+    // NOTE: Since version 25.0.0 there are errors in the detail view.
+    // Didn't find class "android.support.v7.widget.Space" on path: DexPathList
+    compile 'com.android.support:gridlayout-v7:24.2.1'
     compile 'com.android.support:support-annotations:25.0.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile 'com.google.android.gms:play-services-gcm:10.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

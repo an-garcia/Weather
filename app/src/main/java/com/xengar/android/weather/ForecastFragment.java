@@ -190,7 +190,7 @@ public class ForecastFragment extends Fragment implements
 
     // since we read the location when we create the loader, all we need to do is restart things
     void onLocationChanged( ) {
-        updateWeather();
+        //updateWeather();
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
     }
 

@@ -1,7 +1,6 @@
 package com.xengar.android.weather.gcm;
 
 import android.content.Intent;
-
 import com.google.android.gms.iid.InstanceIDListenerService;
 
 public class MyInstanceIDListenerService extends InstanceIDListenerService {
