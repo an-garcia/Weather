@@ -81,7 +81,7 @@
         android:elevation="@dimen/appbar_elevation"
         android:paddingRight="@dimen/abc_list_item_padding_horizontal_material"
         android:paddingEnd="@dimen/abc_list_item_padding_horizontal_material"
-        android:paddingBottom="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingBottom="@dimen/detail_container_bottom_margin"
         />
 
 </RelativeLayout>
