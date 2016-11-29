@@ -2,5 +2,5 @@
 <resources>
     <!-- Layout alias to replace the single-pane version of the layout with two-pane version
      on Large screens. -->
-    <item type="layout" name="fragment_detail">@layout/fragment_detail_wide</item>
+    <item type="layout" name="fragment_detail_start">@layout/fragment_detail_wide</item>
 </resources>
