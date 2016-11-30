@@ -12,7 +12,8 @@ import android.preference.PreferenceManager;
 
 import com.xengar.android.weather.data.WeatherContract;
 import com.xengar.android.weather.sync.WeatherSyncAdapter;
-
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 /**
  * A {@link PreferenceActivity} that presents a set of application settings.
  * <p>
@@ -21,9 +22,11 @@ import com.xengar.android.weather.sync.WeatherSyncAdapter;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class    SettingsActivity extends PreferenceActivity
-        implements Preference.OnPreferenceChangeListener,
+public class SettingsActivity extends PreferenceActivity implements
+        Preference.OnPreferenceChangeListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
+
+    protected final static int PLACE_PICKER_REQUEST = 9090;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,12 +92,10 @@ public class    SettingsActivity extends PreferenceActivity
                     preference.setSummary(stringValue);
                     break;
                 case WeatherSyncAdapter.LOCATION_STATUS_UNKNOWN:
-                    preference.setSummary(getString(R.string.pref_location_unknown_description,
-                            value.toString()));
+                    preference.setSummary(getString(R.string.pref_location_unknown_description, value.toString()));
                     break;
                 case WeatherSyncAdapter.LOCATION_STATUS_INVALID:
-                    preference.setSummary(getString(R.string.pref_location_error_description,
-                            value.toString()));
+                    preference.setSummary(getString(R.string.pref_location_error_description, value.toString()));
                     break;
                 default:
                     // Note --- if the server is down we still assume the value
@@ -141,5 +142,25 @@ public class    SettingsActivity extends PreferenceActivity
     @Override
     public Intent getParentActivityIntent() {
         return super.getParentActivityIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check to see if the result is from our Place Picker intent
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String address = place.getAddress().toString();
+
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(getString(R.string.pref_location_key), address);
+                editor.commit();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
