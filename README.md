@@ -16,12 +16,25 @@ Sample application for Android concepts:
 - Content Providers
 - Loaders
 - Services and Notifications
+- Widgets
  
 Weather is the companion Android app for the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853).
-This app is based on [here](https://github.com/udacity/Sunshine).
+This app is based on [here](https://github.com/udacity/Sunshine)  [here](https://github.com/udacity/Advanced_Android_Development/).
+Synchronizes weather information from OpenWeatherMap on Android Phones and Tablets.
 
 
-
+Pre-requisites
+--------------
+- Android SDK 25 or Higher
+- Build Tools version 21.1.2
+- Android Support AppCompat 25.0.1
+- Android Support Annotations 25.0.1
+- Android Support GridLayout 25.0.1
+- Android Support CardView 25.0.1
+- Android Support Design 25.0.1
+- Android Support RecyclerView 25.0.1
+- Google Play Services GCM 10.0.1
+- BumpTech Glide 3.7.0
 
 ### Open Weather Map API Key is required.
 
