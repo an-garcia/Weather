@@ -129,8 +129,8 @@
     <string name="pref_last_notification">last_notification</string>
 
     <!-- Strings related to Widgets -->
-    <string name="title_widget_today">Sunshine Today</string>
-    <string name="title_widget_detail">Sunshine Details</string>
+    <string name="title_widget_today">Weather Today</string>
+    <string name="title_widget_detail">Weather Details</string>
 
     <!-- Strings related to Muzei Source -->
     <string name="muzei_description">Today\'s weather</string>
