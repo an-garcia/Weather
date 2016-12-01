@@ -3,7 +3,7 @@ Weather
 
 ![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565804.png)
 ![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565868.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480616478.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480618685.png)
 ![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565881.png)
 ![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565890.png)
 ![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/final_bstSnapshot_32292.png)
