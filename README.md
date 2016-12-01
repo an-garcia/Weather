@@ -1,11 +1,10 @@
 Weather
 ========
 
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-29-193842.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-29-194050.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-29-194120.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-29-194229.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/device-2016-11-29-194243.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565804.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565868.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565881.png)
+![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565890.png)
 ![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/final_bstSnapshot_32292.png)
 
 Sample application for Android concepts:
