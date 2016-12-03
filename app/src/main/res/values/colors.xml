@@ -20,7 +20,7 @@
     <color name="grey_700">#646464</color>
     <color name="black">#000000</color>
 
-    <!-- using the "Light Blue" Material Palette -->
+    <!-- using the "Indigo" Material Palette -->
     <color name="primary">#3F51B5</color>  <!-- 500 -->
     <color name="primary_dark">#303F9F</color>  <!-- 700 -->
     <color name="primary_light">#C5CAE9</color> <!-- 100 -->
