@@ -16,25 +16,38 @@
 package com.xengar.android.weather.data;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.test.AndroidTestCase;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.HashSet;
 
-public class TestDb extends AndroidTestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
+public class TestDb {
 
     public static final String LOG_TAG = TestDb.class.getSimpleName();
 
     // Since we want each test to start with a clean slate
     void deleteTheDatabase() {
-        mContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        appContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
     }
 
     /*
         This function gets called before each test is executed to delete the database.  This makes
         sure that we always have a clean test.
      */
+    @Before
     public void setUp() {
         deleteTheDatabase();
     }
@@ -48,6 +61,7 @@ public class TestDb extends AndroidTestCase {
         Note that this only tests that the Location table has the correct columns, since we
         give you the code for the weather table.  This test does not look at the
      */
+    @Test
     public void testCreateDb() throws Throwable {
         // build a HashSet of all of the table names we wish to look for
         // Note that there will be another table in the DB that stores the
@@ -56,9 +70,10 @@ public class TestDb extends AndroidTestCase {
         tableNameHashSet.add(WeatherContract.LocationEntry.TABLE_NAME);
         tableNameHashSet.add(WeatherContract.WeatherEntry.TABLE_NAME);
 
-        mContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        appContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new WeatherDbHelper(
-                this.mContext).getWritableDatabase();
+                appContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
 
         // have we created the tables we want?
@@ -111,6 +126,7 @@ public class TestDb extends AndroidTestCase {
         where you can uncomment out the "createNorthPoleLocationValues" function.  You can
         also make use of the ValidateCurrentRecord function from within TestUtilities.
     */
+    @Test
     public void testLocationTable() {
         insertLocation();
     }
@@ -121,6 +137,7 @@ public class TestDb extends AndroidTestCase {
         where you can use the "createWeatherValues" function.  You can
         also make use of the validateCurrentRecord function from within TestUtilities.
      */
+    @Test
     public void testWeatherTable() {
         // First insert the location, and then use the locationRowId to insert
         // the weather. Make sure to cover as many failure cases as you can.
@@ -138,7 +155,8 @@ public class TestDb extends AndroidTestCase {
         // First step: Get reference to writable database
         // If there's an error in those massive SQL table creation Strings,
         // errors will be thrown here when you try to get a writable database.
-        WeatherDbHelper dbHelper = new WeatherDbHelper(mContext);
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        WeatherDbHelper dbHelper = new WeatherDbHelper(appContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Second Step (Weather): Create weather values
@@ -186,7 +204,8 @@ public class TestDb extends AndroidTestCase {
         // First step: Get reference to writable database
         // If there's an error in those massive SQL table creation Strings,
         // errors will be thrown here when you try to get a writable database.
-        WeatherDbHelper dbHelper = new WeatherDbHelper(mContext);
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        WeatherDbHelper dbHelper = new WeatherDbHelper(appContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Second Step: Create ContentValues of what you want to insert
