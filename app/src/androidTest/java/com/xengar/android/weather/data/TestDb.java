@@ -72,8 +72,7 @@ public class TestDb {
 
         Context appContext = InstrumentationRegistry.getTargetContext();
         appContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
-        SQLiteDatabase db = new WeatherDbHelper(
-                appContext).getWritableDatabase();
+        SQLiteDatabase db = new WeatherDbHelper(appContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
 
         // have we created the tables we want?

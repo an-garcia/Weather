@@ -15,14 +15,20 @@
  */
 package com.xengar.android.weather;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.database.Cursor;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.xengar.android.weather.data.WeatherContract;
+import com.xengar.android.weather.sync.WeatherSyncAdapter;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
 public class TestFetchWeatherTask {
@@ -31,27 +37,22 @@ public class TestFetchWeatherTask {
     static final double ADD_LOCATION_LAT = 34.425833;
     static final double ADD_LOCATION_LON = -119.714167;
 
-    @Test
-    public void useAppContext() throws Exception {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
-        assertEquals("com.xengar.android.weather", appContext.getPackageName());
-    }
 
     /*
-        Students: uncomment testAddLocation after you have written the AddLocation function.
         This test will only run on API level 11 and higher because of a requirement in the
         content provider.
      */
-    /*
+
     @TargetApi(11)
+    @Test
     public void testAddLocation() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
         // start from a clean state
-        getContext().getContentResolver().delete(WeatherContract.LocationEntry.CONTENT_URI,
+        appContext.getContentResolver().delete(WeatherContract.LocationEntry.CONTENT_URI,
                 WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " = ?",
                 new String[]{ADD_LOCATION_SETTING});
 
-        FetchWeatherTask fwt = new FetchWeatherTask(getContext());
+        WeatherSyncAdapter fwt = new WeatherSyncAdapter(appContext, true);
         long locationId = fwt.addLocation(ADD_LOCATION_SETTING, ADD_LOCATION_CITY,
                 ADD_LOCATION_LAT, ADD_LOCATION_LON);
 
@@ -63,7 +64,7 @@ public class TestFetchWeatherTask {
         for ( int i = 0; i < 2; i++ ) {
 
             // does the ID point to our location?
-            Cursor locationCursor = getContext().getContentResolver().query(
+            Cursor locationCursor = appContext.getContentResolver().query(
                     WeatherContract.LocationEntry.CONTENT_URI,
                     new String[]{
                             WeatherContract.LocationEntry._ID,
@@ -85,11 +86,11 @@ public class TestFetchWeatherTask {
                 assertEquals("Error: the queried value of location city is incorrect",
                         locationCursor.getString(2), ADD_LOCATION_CITY);
                 assertEquals("Error: the queried value of latitude is incorrect",
-                        locationCursor.getDouble(3), ADD_LOCATION_LAT);
+                        locationCursor.getDouble(3), ADD_LOCATION_LAT, 0.1);
                 assertEquals("Error: the queried value of longitude is incorrect",
-                        locationCursor.getDouble(4), ADD_LOCATION_LON);
+                        locationCursor.getDouble(4), ADD_LOCATION_LON, 0.1);
             } else {
-                fail("Error: the id you used to query returned an empty cursor");
+                assertEquals("Error: the id you used to query returned an empty cursor", 0, 1);
             }
 
             // there should be no more records
@@ -104,13 +105,13 @@ public class TestFetchWeatherTask {
                     locationId, newLocationId);
         }
         // reset our state back to normal
-        getContext().getContentResolver().delete(WeatherContract.LocationEntry.CONTENT_URI,
+        appContext.getContentResolver().delete(WeatherContract.LocationEntry.CONTENT_URI,
                 WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " = ?",
                 new String[]{ADD_LOCATION_SETTING});
 
         // clean up the test so that other tests can use the content provider
-        getContext().getContentResolver().
+        appContext.getContentResolver().
                 acquireContentProviderClient(WeatherContract.LocationEntry.CONTENT_URI).
                 getLocalContentProvider().shutdown();
-    }*/
+    }
 }

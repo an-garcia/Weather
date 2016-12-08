@@ -98,7 +98,6 @@ public class TestProvider {
        functions only.  This is designed to be used to reset the state of the database until the
        delete functionality is available in the ContentProvider.
      */
-    @Test
     public void deleteAllRecordsFromDB() {
         Context appContext = InstrumentationRegistry.getTargetContext();
         WeatherDbHelper dbHelper = new WeatherDbHelper(appContext);
