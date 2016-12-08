@@ -121,7 +121,6 @@ public class TestProvider {
     // in setUp (called by the test runner before each test).
     @Before
     public void setUp(){
-        //super.setUp();
         deleteAllRecords();
     }
 
