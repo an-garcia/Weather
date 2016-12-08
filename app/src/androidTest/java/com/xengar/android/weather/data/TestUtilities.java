@@ -8,21 +8,38 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.test.AndroidTestCase;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.xengar.android.weather.utils.PollingCheck;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import java.util.Map;
 import java.util.Set;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 /*
     Students: These are functions and some test data to make it easier to test your database and
     Content Provider.  Note that you'll want your WeatherContract class to exactly match the one
     in our solution to use these as-given.
  */
-public class TestUtilities extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+public class TestUtilities {
     static final String TEST_LOCATION = "99705";
     static final long TEST_DATE = 1419033600L;  // December 20th, 2014
+
+    @Test
+    public void useAppContext() throws Exception {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        Assert.assertEquals("com.xengar.android.weather", appContext.getPackageName());
+    }
 
     static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
         assertTrue("Empty cursor returned. " + error, valueCursor.moveToFirst());

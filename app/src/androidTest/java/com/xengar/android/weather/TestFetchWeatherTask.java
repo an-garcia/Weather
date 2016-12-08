@@ -15,13 +15,28 @@
  */
 package com.xengar.android.weather;
 
-import android.test.AndroidTestCase;
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
-public class TestFetchWeatherTask extends AndroidTestCase{
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertEquals;
+
+@RunWith(AndroidJUnit4.class)
+public class TestFetchWeatherTask {
     static final String ADD_LOCATION_SETTING = "Sunnydale, CA";
     static final String ADD_LOCATION_CITY = "Sunnydale";
     static final double ADD_LOCATION_LAT = 34.425833;
     static final double ADD_LOCATION_LON = -119.714167;
+
+    @Test
+    public void useAppContext() throws Exception {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        assertEquals("com.xengar.android.weather", appContext.getPackageName());
+    }
 
     /*
         Students: uncomment testAddLocation after you have written the AddLocation function.

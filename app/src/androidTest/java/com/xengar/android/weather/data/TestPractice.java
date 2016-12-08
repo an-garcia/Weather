@@ -1,16 +1,28 @@
 package com.xengar.android.weather.data;
 
-import android.test.AndroidTestCase;
+import android.support.test.runner.AndroidJUnit4;
 
-public class TestPractice extends AndroidTestCase {
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(AndroidJUnit4.class)
+public class TestPractice {
     /*
-        This gets run before every test.
+        This gets run before every test because of the annotation.
      */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() {
+        // Some action here
     }
 
+    @Test
     public void testThatDemonstratesAssertions() throws Throwable {
         int a = 5;
         int b = 3;
@@ -26,8 +38,8 @@ public class TestPractice extends AndroidTestCase {
         }
     }
 
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @After
+    public void tearDown()  {
+        // Some actions
     }
 }

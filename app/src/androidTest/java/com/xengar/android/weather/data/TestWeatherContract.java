@@ -16,13 +16,20 @@
 package com.xengar.android.weather.data;
 
 import android.net.Uri;
-import android.test.AndroidTestCase;
+import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 
 /*
     Students: This is NOT a complete test for the WeatherContract --- just for the functions
     that we expect you to write.
  */
-public class TestWeatherContract extends AndroidTestCase {
+@RunWith(AndroidJUnit4.class)
+public class TestWeatherContract {
 
     // intentionally includes a slash to make sure Uri is getting quoted correctly
     private static final String TEST_WEATHER_LOCATION = "/North Pole";
@@ -31,6 +38,7 @@ public class TestWeatherContract extends AndroidTestCase {
     /*
         Students: Uncomment this out to test your weather location function.
      */
+    @Test
     public void testBuildWeatherLocation() {
         Uri locationUri = WeatherContract.WeatherEntry.buildWeatherLocation(TEST_WEATHER_LOCATION);
         assertNotNull("Error: Null Uri returned.  You must fill-in buildWeatherLocation in " +
