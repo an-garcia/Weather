@@ -42,11 +42,13 @@ Pre-requisites
 In order for the app to function properly as of October 18th, 2015 an API key for openweathermap.org must be included with the build.
 
 It's recommended to obtain a key via the following [instructions](http://openweathermap.org/appid#use), and include the unique key for the build by adding the following line to [USER_HOME]/app/build.gradle
+Create a new resources file (using this path:/app/src/main/res/values/api_keys.xml) and put "OPEN_WEATHER_MAP_API_KEY" key value in it as string.
 
 ```
-buildTypes.each {
-        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', '"UNIQUE_API_KEY"'
-    }
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="OPEN_WEATHER_MAP_API_KEY">exxxx26c4xxxxdcfd0xxxxb427xxxxe0</string>
+</resources>
 ```
 
 ### Google Play Services

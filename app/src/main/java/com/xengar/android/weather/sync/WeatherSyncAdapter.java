@@ -45,7 +45,6 @@ import android.text.format.Time;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
-import com.xengar.android.weather.BuildConfig;
 import com.xengar.android.weather.MainActivity;
 import com.xengar.android.weather.R;
 import com.xengar.android.weather.Utility;
@@ -79,6 +78,7 @@ public class WeatherSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
+    private Context context;
 
 
     private static final String[] NOTIFY_WEATHER_PROJECTION = new String[] {
@@ -106,10 +106,13 @@ public class WeatherSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public WeatherSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
+        this.context = context;
     }
 
     @Override
-    public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
+    public void onPerformSync(Account account, Bundle extras, String authority,
+                              ContentProviderClient provider, SyncResult syncResult) {
+
         Log.d(LOG_TAG, "Starting sync");
 
         // We no longer need just the location String, but also potentially the latitude and
@@ -163,7 +166,8 @@ public class WeatherSyncAdapter extends AbstractThreadedSyncAdapter {
             Uri builtUri = uriBuilder.appendQueryParameter(FORMAT_PARAM, format)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
-                    .appendQueryParameter(APPID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
+                    .appendQueryParameter(APPID_PARAM,
+                            context.getString(R.string.OPEN_WEATHER_MAP_API_KEY))
                     .build();
 
             URL url = new URL(builtUri.toString());
