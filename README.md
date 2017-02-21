@@ -1,12 +1,12 @@
 Weather
 ========
 
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565804.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565868.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480618685.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565881.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/Screenshot_1480565890.png)
-![alt tag](https://github.com/an-garcia/Weather/blob/master/readmeImages/final_bstSnapshot_32292.png)
+![Scheme](/readmeImages/Screenshot_1480565804.png)
+![Scheme](/readmeImages/Screenshot_1480565868.png)
+![Scheme](/readmeImages/Screenshot_1480618685.png)
+![Scheme](/readmeImages/Screenshot_1480565881.png)
+![Scheme](/readmeImages/Screenshot_1480565890.png)
+![Scheme](/readmeImages/final_bstSnapshot_32292.png)
 
 Sample application for Android concepts:
 - List view
