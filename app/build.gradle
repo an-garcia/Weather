@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.xengar.android.weather"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -26,18 +26,16 @@ dependencies {
     })
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    // NOTE: Since version 25.0.0 there are errors in the detail view.
-    // Didn't find class "android.support.v7.widget.Space" on path: DexPathList
-    compile 'com.android.support:gridlayout-v7:24.2.1'
-    compile 'com.android.support:support-annotations:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
+    compile 'com.android.support:support-annotations:25.3.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:cardview-v7:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.google.android.apps.muzei:muzei-api:2.0'
-    compile 'com.google.android.gms:play-services-gcm:10.0.1'
-    compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'com.google.android.gms:play-services-gcm:10.2.6'
+    compile 'com.google.android.gms:play-services-places:10.2.6'
 }
 
 apply plugin: 'com.google.gms.google-services'
